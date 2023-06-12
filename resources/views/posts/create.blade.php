@@ -21,12 +21,20 @@
                     <div class="space-y-2">
                         <h1 class="text-lg font-semibold">Nosaukums</h1>
                         <input type="text" name="title" class="h-8 w-full border-b-[1px] text-black border-black border-l-8 border-l-yellow-700 focus:outline-0">
-                        <p></p>
+                        <p class="text-red-700">
+                            @error('title')
+                                {{ $message }}
+                            @enderror
+                        </p>
                     </div>
                     <div class="space-y-2">
                         <h1 class="text-lg font-semibold">Teksts</h1>
                         <textarea name="description" cols="30" rows="5" class="w-full border-[1px] border-black resize-none"></textarea>
-                        <p></p>
+                        <p class="text-red-700">
+                            @error('description')
+                                {{ $message }}
+                            @enderror
+                        </p>
                     </div>
                     <div class="w-full flex justify-evenly">
                         <select name="location_id" class="border-[1px] border-black p-1">

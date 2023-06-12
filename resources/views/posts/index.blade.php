@@ -18,7 +18,9 @@
                     <h1 class="text-white">Jo pelnīt var <span class="underline">tikai darot!</span></h1>
                     <p class="text-yellow-400 font-light text-2xl">Piesakies haltūrai jau tagad, vai ievieto pats!</p>
                     <div class="w-full flex justify-center space-x-6">
-                        <a href="/register" class="text-white flex items-center space-x-2 text-lg font-normal border-2 border-yellow-700 rounded-full w-fit h-fit py-2 px-4 hover:bg-yellow-700 hover:text-black hover:transition ease-in duration-200"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg><span>Reģistrēties</span></a>
+                        @if (!Auth::check())
+                            <a href="/register" class="text-white flex items-center space-x-2 text-lg font-normal border-2 border-yellow-700 rounded-full w-fit h-fit py-2 px-4 hover:bg-yellow-700 hover:text-black hover:transition ease-in duration-200"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg><span>Reģistrēties</span></a>                            
+                        @endif
                         <a href="/posts" class="text-white flex items-center space-x-2 text-lg font-normal border-2 border-yellow-700 rounded-full w-fit h-fit py-2 px-4 hover:bg-yellow-700 hover:text-black hover:transition ease-in duration-200"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg><span>Haltūras</span></a>
 
                     </div>
@@ -27,6 +29,7 @@
             <!-- Login side -->
             <div class="w-2/4 h-full flex justify-center items-center">
                 <!-- LOGIN WHITE BOX -->
+                @if(!Auth::check())
                 <div class="w-2/4 h-fit bg-white p-6 rounded-lg">
                     <div class="w-full h-1/6 text-xl font-semibold">
                         <h1>Pieslēgties</h1>
@@ -58,6 +61,7 @@
                         </form>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -144,18 +148,6 @@
                 <div class="w-full h-full flex justify-center items-center space-x-3">
                     <h1 class="font-light text-6xl">{{ $post_count }}</h1>
                     <svg class="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                </div>
-            </div>
-        </div>
-        <!-- Posts daily -->
-        <div class="h-full w-1/3 text-center border-2 border-white p-6">
-            <div class="w-full h-full text-4xl font-semibold flex flex-col">
-                <div class="flex justify-center h-fit">
-                    <h1>Haltūras Dienā</h1>
-                </div>
-                <div class="w-full h-full flex justify-center items-center space-x-3">
-                    <h1 class="font-light text-6xl">542</h1>
-                    <svg class="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 </div>
             </div>
         </div>

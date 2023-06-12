@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->foreignId('type_id')->references('id')->on('types');
             $table->foreignId('location_id')->references('id')->on('locations');
+            $table->integer('view_count')->default(0);
+            $table->integer('applied_count')->default(0);
+            $table->boolean('is_verified')->default(0);
+            $table->boolean('is_reported')->default(0);
             $table->timestamps();
         });
     }

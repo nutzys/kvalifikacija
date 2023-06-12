@@ -23,8 +23,8 @@ class Post extends Model
     ];
     use HasFactory;
 
-    public function users(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function location(){
@@ -37,6 +37,11 @@ class Post extends Model
 
     public function applied(){
         return $this->hasMany(AppliedUser::class);
+    }
+
+    public function incrementViewCount(){
+        $this->view_count = $this->view_count + 1;
+        $this->save();
     }
 
 }

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<div class="w-full h-full bg-cover bg-center overflow-hidden" style="background-image: url('/img/picture3.jpg');">
+<div class="w-full h-screen bg-cover bg-center overflow-hidden" style="background-image: url('/img/picture3.jpg');">
     <div class="w-full h-full backdrop-blur-sm backdrop-brightness-50">
         <div class="w-full h-20 bg-gradient-to-b from-black">
             <nav class="w-full h-full">
@@ -15,19 +15,21 @@
                 <div class="w-1/5 h-full flex flex-col bg-yellow-500">
                     <div class="flex flex-col space-y-10 items-center w-full h-full text-lg">
                         <a href="/profile/{{ auth()->user()->id }}" class="hover:underline">Profils</a>
-                        <a href="/stats" class="hover:underline">Statistika</a>
                         <a href="/applied" class="hover:underline">Pieteikumi</a>
                         <a href="/myapplied/{{ auth()->user()->id }}" class="hover:underline">Mani pieteikumi</a>
                         <a href="/settings" class="hover:underline">Iestatījumi</a>
                         <a href="/posts" class="hover:underline">Atpakaļ</a>
                     </div>
                 </div>
-                <div class="w-full h-fullp-5">
-                    <form action="/settings/{bio}" method="post">
-                        @csrf
-                        <textarea name="bio" cols="30" rows="10"></textarea>
-                        <button>Saglabāt</button>
-                    </form>
+                <div class="w-full h-full p-5">
+                    <div class="h-1/2 w-1/2">   
+                        <h1 class="text-2xl block">Par mani:</h1>
+                        <form action="/settings/{bio}" method="post" class="flex flex-col">
+                            @csrf
+                            <textarea name="bio" cols="30" rows="10" class="border-2 border-black"></textarea>
+                            <button>Saglabāt</button>
+                        </form>
+                    </div> 
                 </div>
             </div>
         </div>

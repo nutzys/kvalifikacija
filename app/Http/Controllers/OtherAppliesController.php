@@ -9,25 +9,27 @@ use Illuminate\Http\Request;
 
 class OtherAppliesController extends Controller
 {
-
-    public function index(){
-        $posts = Post::where('user_id', auth()->user()->id)->get();
-        $post_ids= [];
+    //KAS UZERIM PIETEIKUSIES
+    public function index(){        
+        //get users posts id   
+        $postIds = [];
+        $posts = Post::where('user_id', '=', auth()->user()->id)->get();
         foreach($posts as $post){
-            $post_ids[] = $post->id;
+            $postIds[] = $post->id;
         }
-        $appliedUserIds = [];
-        foreach($post_ids as $post_id){
-            $appliedUserIds[] = AppliedUser::where('post_id', $post_id)->get();
+        
+        $applied = AppliedUser::where('post_id', '=', $postIds)->get();
+        foreach($applied as $apUser){
+            $appliedIds[] = $apUser->user_id;
         }
-        $users = [];
-        foreach($appliedUserIds as $user){
-            foreach($user as $u){
-                $users[] = User::where('id', $u->user_id)->get();
-            }
+        if(!empty($appliedIds)){
+            $users = User::find($appliedIds);
+        }else{
+            $users = [];
         }
-        return view('pages.applied',[
-            'users' => $users
+        return view('pages.applied', [
+            'users' => $users,
+            'posts' => $posts,
         ]);
     }
 }

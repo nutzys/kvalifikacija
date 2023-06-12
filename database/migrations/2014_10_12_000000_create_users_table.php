@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('available_post_count')->nullable()->default('1');
             $table->text('bio')->nullable();
             $table->float('rating')->nullable();
+            $table->boolean('is_admin')->default(0);
             $table->timestamps();
         });
     }

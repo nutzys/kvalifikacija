@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UsersController;
@@ -29,7 +30,8 @@ Route::get('/posts/{post}', [PostsController::class, 'show']);
 //Apply to post
 Route::post('/apply/{post}', [PostsController::class, 'apply']);
 
-
+//Report a post
+Route::post('/posts/report/{post}', [PostsController::class, 'report']);
 
 //=====User routes=======
 
@@ -67,6 +69,12 @@ Route::get('/applied', [OtherAppliesController::class, 'index']);
 //===STATS ROUTES=====
 Route::get('/stats', [StatsController::class, 'index']);
 
+//===Admin Routes===
 
-
+Route::get('/admin', [AdminController::class, 'index'])->middleware('is_admin');
+Route::get('/admin/newposts', [AdminController::class, 'newPosts'])->middleware('is_admin');
+Route::post('/admin/newpost/{id}', [AdminController::class, 'accept'])->middleware('is_admin');
+Route::delete('/admin/newpost/delete/{id}', [AdminController::class, 'destroyNewPost'])->middleware('is_admin');
+Route::get('/admin/reports', [AdminController::class, 'reports'])->middleware('is_admin');
+Route::delete('/admin/delete/{id}', [AdminController::class, 'delete'])->middleware('is_admin');
 

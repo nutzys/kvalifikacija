@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
-use App\Models\AppliedUser;
 use App\Models\Post;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\AppliedUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 { 
@@ -15,17 +16,21 @@ class PostsController extends Controller
         return view('posts.index', [
             'post_count' => Post::count(),
             'user_count' => User::count()
-        ]);
+            ]);
     }
 
     public function all(){
+        if(Auth::check()){
+            $user = User::find(auth()->user()->id);
+        }
         return view('posts.all', [
-            'posts' => Post::all()
+            'posts' => Post::all()->where('is_verified', 1),
+            'user' => !empty($user) ? $user : ''
         ]);
     }
 
     public function show(Post $post){
-
+        $post->incrementViewCount();
         return view('posts.show', [
             'post' => $post,
             'user' => User::find($post->user_id)
@@ -64,33 +69,17 @@ class PostsController extends Controller
             'user_id' => auth()->id(),
             'post_id' => $post->id
         ];
-
+        $post = Post::find($post->id);
+        $post->applied_count = $post->applied_count + 1;
+        $post->save();
         AppliedUser::create($applied_data);
         return redirect('/posts');
     }
 
-    //Load edit page
-    public function edit(Post $post){
-        return view('posts.edit', [
-            'post' => $post
-        ]);
-    }
-
-    //Update edit page data
-    public function update(Request $request, Post $post){
-        $fields = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'user' => 'required'
-        ]);
-
-        $post->update($fields);
-        return redirect('/');
-    }
-
-    //Delete post
-    public function destroy(Post $post){
-        $post->delete();
-        return redirect('/');
+    public function report(Post $post){
+        $post = Post::find($post->id);
+        $post->is_reported = 1;
+        $post->save();
+        return redirect()->back();
     }
 }

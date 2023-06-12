@@ -15,14 +15,19 @@
                 <div class="w-1/5 h-full flex flex-col bg-yellow-500">
                     <div class="flex flex-col space-y-10 items-center w-full h-full text-lg">
                         <a href="/profile/{{ auth()->user()->id }}" class="hover:underline">Profils</a>
-                        <a href="/stats" class="hover:underline">Statistika</a>
                         <a href="/applied" class="hover:underline">Pieteikumi</a>
                         <a href="/myapplied/{{ auth()->user()->id }}" class="hover:underline">Mani pieteikumi</a>
                         <a href="/settings" class="hover:underline">Iestatījumi</a>
                         <a href="/posts" class="hover:underline">Atpakaļ</a>
                     </div>
                 </div>
-                
+                <div>
+                    @foreach ($posts as $post)
+                    <div class="m-4 border-black">
+                        <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+                    </div>
+                    @endforeach
+                </div>    
             </div>
         </div>
     </div>
